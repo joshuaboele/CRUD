@@ -1,0 +1,124 @@
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
+  <title>Albeda Paint</title>
+  <script type="text/javascript">
+  function fnExcelReport()
+  {
+      var tab_text="<table border='2px'><tr bgcolor='#87AFC6'>";
+      var textRange; var j=0;
+      tab = document.getElementById('headerTable'); // id of table
+
+      for(j = 0 ; j < tab.rows.length ; j++)
+      {
+          tab_text=tab_text+tab.rows[j].innerHTML+"</tr>";
+          //tab_text=tab_text+"</tr>";
+      }
+
+      tab_text=tab_text+"</table>";
+      tab_text= tab_text.replace(/<A[^>]*>|<\/A>/g, "");
+      tab_text= tab_text.replace(/<img[^>]*>/gi,"");
+      tab_text= tab_text.replace(/<input[^>]*>|<\/input>/gi, "");
+
+      var ua = window.navigator.userAgent;
+      var msie = ua.indexOf("MSIE ");
+
+      if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer
+      {
+          txtArea1.document.open("txt/html","replace");
+          txtArea1.document.write(tab_text);
+          txtArea1.document.close();
+          txtArea1.focus();
+          sa=txtArea1.document.execCommand("SaveAs",true,"Say Thanks to Sumit.xls");
+      }
+      else                 //other browser not tested on IE 11
+          sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));
+
+      return (sa);
+  }
+  </script>
+</head>
+<body>
+  <div class="content">
+    <header>
+      <h1>Albeda Paint</h1>
+    </header>
+<div class="container">
+  <h2>Klanten</h2>
+  <div class="table-responsive">
+  {{> invoerveldje}}
+  <table class="table" id="headerTable">
+    <thead>
+      <tr>
+        <th>Klant ID</th>
+        <th class="header" data-col="voornaam">Voornaam</th>
+        <th class="header" data-col="achternaam">Achternaam</th>
+        <th class="header" data-col="telefoon">Telefoonnummer</th>
+        <th class="header" data-col="email">Email</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each customers}}
+        {{> customer}}
+      {{/each}}
+    </tbody>
+  </table>
+  </div>
+</div>
+  </div>
+</body>
+<template name="customer">
+  <tr>
+    <td>{{ _id}}</td>
+    <td>{{ voornaam}}</td>
+    <td>{{ achternaam}}</td>
+    <td>{{ telefoon}}</td>
+    <td>{{ email}}</td>
+    <td><button class="delete">&times;</button></td>
+    <td><button type="button" class="edit" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">edit</button></td>
+  </tr>
+</template>
+<template name="invoerveldje">
+
+  <button type="button" class="btn btn-primary anchor" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Voeg gebruiker toe</button>
+  <button id="btnExport" class="btn btn-primary" onclick="fnExcelReport();">Excel</button>
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"   aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="exampleModalLabel">Nieuwe Klant</h4>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="recipient-name" class="control-label">Voornaam</label>
+              <input type="text" class="form-control" name="firstName" id="register-voornaam">
+            </div>
+            <div class="form-group">
+              <label for="recipient-name" class="control-label">Achternaam</label>
+              <input type="text" class="form-control" name="surName" id="register-achternaam">
+            </div>
+            <div class="form-group">
+              <label for="recipient-name" class="control-label">Telefoonnummer</label>
+              <input type="text" class="form-control" name="phoneNumber" id="register-telefoon">
+            </div>
+            <div class="form-group">
+              <label for="recipient-name" class="control-label">E-mail</label>
+              <input type="text" class="form-control email" id="register-email">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Sluit</button>
+              <button type="submit" class="btn btn-primary">Voeg toe</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="test"></div>
+
+</template>
