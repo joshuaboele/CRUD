@@ -40,17 +40,22 @@ if (Meteor.isClient) {
       var registerachternaam  = t.find('#register-achternaam').value;
       var registertelefoon   = t.find('#register-telefoon').value;
       var registeremail    = t.find('#register-email').value;
+      var registeroptional    = t.find('#register-optional').value;
+
 
       Customers.insert({
         voornaam: registervoornaam,
         achternaam: registerachternaam,
         telefoon: registertelefoon,
-        email: registeremail
+        email: registeremail,
+        optional: registeroptional
       });
       t.find('#register-voornaam').value = '';
       t.find('#register-achternaam').value = '';
       t.find('#register-telefoon').value = '';
       t.find('#register-email').value = '';
+      t.find('#register-optional').value = '';
+
     }
   })
 }

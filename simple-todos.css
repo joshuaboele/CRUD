@@ -17,7 +17,7 @@ body {
 }
 
 .container {
-  width: 900px;
+  width: 1200px;
   max-width: 900px;
   margin: 0 auto;
   min-height: 100%;
@@ -25,7 +25,7 @@ body {
 }
 
 .content {
-  width: 899px;
+  width: 1199px;
   background: white;
   margin: 0 auto;
   min-height: 100%;
@@ -131,6 +131,7 @@ header .hide-completed {
   }
 }/* CSS declarations go here */
 
-.anchor {
-  background-color: red;
+.edit {
+  background: none;
+  border: none;
 }
